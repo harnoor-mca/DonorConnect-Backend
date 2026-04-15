@@ -21,6 +21,7 @@ app.post("/register",(req,res)=>{
         res.json({message:"User registered successfully"});
     });
 });
+
 // const express=require("express");
 // const cors=require("cors");
 // const app=express();
@@ -110,6 +111,7 @@ app.post("/api/donate", (req, res) => {
     }
   );
 });
+
 app.get("/api/ngo-requests/:ngo_id",(req,res)=>{
     const ngo_id=req.params.ngo_id;
     const sql="Select dr.*,d.full_name,d.email,d.phone from donation_request dr join donor d on dr.donor_id=d.donor_id where dr.ngo_id=? order by dr.request_date desc";
@@ -134,3 +136,4 @@ app.put("/api/donation/:id", (req, res) => {
         res.json({ message: "Status updated" });
     });
 });
+

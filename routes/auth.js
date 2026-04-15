@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72e9fc46a1705d3a51d8bddef1b55c3bfce07e34
 const express=require("express");
 const router=express.Router();
 const db=require("../db");
@@ -49,6 +52,7 @@ console.log(req.body);
   });
 });
 
+<<<<<<< HEAD
 
 // const express=require("express");
 // const router=express.Router();
@@ -100,4 +104,6 @@ console.log(req.body);
   });
 });
 
+=======
+>>>>>>> 72e9fc46a1705d3a51d8bddef1b55c3bfce07e34
 module.exports=router;
