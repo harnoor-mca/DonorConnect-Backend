@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 72e9fc46a1705d3a51d8bddef1b55c3bfce07e34
 const express=require("express");
 const router=express.Router();
 const db=require("../db");
@@ -52,34 +49,6 @@ console.log(req.body);
   });
 });
 
-<<<<<<< HEAD
-
-// const express=require("express");
-// const router=express.Router();
-// const db=require("../db");
-
-// router.post("/register",(req,res)=> {
-//     console.log("BODY: ",req.body);
-//     const body=req.body||{};
-//     const {name,email,password,city,phone,role,address,category}=req.body;
-//     if (role==="ngo"){
-//         const sql=`INSERT INTO ngo(organisation_name,email,password,city,phone,address,category) 
-//       VALUES (?,?,?,?,?,?,?)`;
-//         db.query(sql,[name,email,password,city,phone,address,category],(err)=>{
-//             if(err) return res.json(err);
-//             res.json("NGO registered");
-//         });
-//     }
-//     else{
-//         const sql=`INSERT INTO donor(full_name,email,password,city,phone) VALUES (?,?,?,?,?)`;
-//         db.query(sql,[name,email,password,city,phone],(err)=>{
-//             if (err) return res.json(err);
-//             res.json("Donor registered !");
-//         });
-//     }
-// });
-
-
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -104,6 +73,4 @@ console.log(req.body);
   });
 });
 
-=======
->>>>>>> 72e9fc46a1705d3a51d8bddef1b55c3bfce07e34
 module.exports=router;
