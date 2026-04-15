@@ -1,4 +1,3 @@
-
 const express=require("express");
 const cors=require("cors");
 const app=express();
@@ -110,4 +109,28 @@ app.post("/api/donate", (req, res) => {
       res.json({ message: "Request sent successfully" });
     }
   );
+});
+app.get("/api/ngo-requests/:ngo_id",(req,res)=>{
+    const ngo_id=req.params.ngo_id;
+    const sql="Select dr.*,d.full_name,d.email,d.phone from donation_request dr join donor d on dr.donor_id=d.donor_id where dr.ngo_id=? order by dr.request_date desc";
+db.query(sql,[ngo_id],(err,result)=>{
+        if (err){
+            console.log(err);
+            return res.status(500).json({message:"Error fetching Ngo requests"});}
+        res.json(result);
+    });
+});
+app.put("/api/donation/:id", (req, res) => {
+    const id = req.params.id;
+    const { status } = req.body;
+
+    const sql = "UPDATE donation_request SET status = ? WHERE request_id = ?";
+
+    db.query(sql, [status, id], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ message: "Error updating status" });
+        }
+        res.json({ message: "Status updated" });
+    });
 });
