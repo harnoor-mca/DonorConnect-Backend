@@ -12,14 +12,26 @@ app.listen(5000,()=>{
 });
 app.post("/register",(req,res)=>{
     const {name,email,password,role,phone,city,category}=req.body;
-    const sql=`Insert into donor(name,email,password,role,phone,city,category) values (?,?,?,?,?,?,?)`;
-    db.query(sql,[name,email,password,role,phone,city,category],(err,result)=> {
+    if (role=="donor"){
+    const sql=`Insert into donor(name,email,password,role,phone,city) values (?,?,?,?,?,?)`;
+    db.query(sql,[name,email,password,role,phone,city],(err,result)=> {
         if(err){
             console.log(err);
             return res.status(500).json({message:"Registration failed"});
         }
         res.json({message:"User registered successfully"});
     });
+    }
+    else if(role==="ngo"){
+        const sql=`Insert into ngo(organisation_name,email,password,phone,city,category) values (?,?,?,?,?,?)`;
+    db.query(sql,[name,email,password,phone,city,category],(err,result)=> {
+        if(err){
+            console.log(err);
+            return res.status(500).json({message:"Registration failed"});
+        }
+        res.json({message:"NGO registered successfully"});
+    });
+    }
 });
 
 app.get("/api/ngos",(req,res)=>{
@@ -70,18 +82,47 @@ app.delete("/api/donation/:request_id",(req,res)=>
         res.json({message:"Donation request deleted successfully"});
     });
 });
-// app.delete("/api/ngo-del/:ngo_id",(req,res)=>
-// {
-//     const id=req.params.ngo_id;
-//     const sql="Delete from ngo where ngo_id=?";
-//     db.query(sql,[id],(err,result)=>{
-//         if (err){
-//             console.log(err);
-//             return res.status(500).json({message:"Error deleting ngo right now"});
-//         }
-//         res.json({message:"NGO deleted successfully"});
-//     });
-// });
+app.delete("/api/admin/ngo-del/:id",(req,res)=>
+{const id=req.params.id;
+    
+    const deleteRequests="Delete from donation_request where ngo_id=?";
+    db.query(deleteRequests,[id],(err,result)=>{
+        if (err){
+            console.log(err);
+            return res.status(500).json({message:"Error deleting request right now"});
+        }
+    
+    const sql="Delete from ngo where ngo_id=?";
+    db.query(sql,[id],(err,result)=>{
+        if (err){
+            console.log(err);
+            return res.status(500).json({message:"Error deleting ngo right now"});
+        }
+        return res.json({message:"NGO deleted successfully"});
+    });
+});
+});
+
+app.delete("/api/admin/donor-del/:id",(req,res)=>
+{
+    const id=req.params.id;
+    const deleteRequests="Delete from donation_request where donor_id=?";
+    db.query(deleteRequests,[id],(err,result)=>{
+        if (err){
+            console.log(err);
+            return res.status(500).json({message:"Error deleting request right now"});
+        }
+    
+    const sql="Delete from donor where donor_id=?";
+    db.query(sql,[id],(err,result)=>{
+        if (err){
+            console.log(err);
+            return res.status(500).json({message:"Error deleting donor right now"});
+        }
+        return res.json({message:"Donor deleted successfully"});
+    });
+});
+});
 app.post("/api/donate", (req, res) => {
   const {
     donor_id,
