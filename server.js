@@ -23,8 +23,8 @@ app.post("/register",(req,res)=>{
     });
     }
     else if(role==="ngo"){
-        const sql=`Insert into ngo(organisation_name,email,password,phone,city,category) values (?,?,?,?,?,?)`;
-    db.query(sql,[name,email,password,phone,city,category],(err,result)=> {
+        const sql=`Insert into ngo(organisation_name,email,password,phone,city,address,category) values (?,?,?,?,?,?,?)`;
+    db.query(sql,[name,email,password,phone,city,address,category],(err,result)=> {
         if(err){
             console.log(err);
             return res.status(500).json({message:"Registration failed"});
@@ -154,7 +154,7 @@ console.log(req.body);
 
 app.get("/api/ngo-requests/:ngo_id",(req,res)=>{
     const ngo_id=req.params.ngo_id;
-    const sql="Select dr.*,d.full_name,d.email,d.phone from donation_request dr join donor d on dr.donor_id=d.donor_id where dr.ngo_id=? order by dr.request_date desc";
+    const sql="Select dr.*,d.full_name,d.email,d.phone from donation_request dr join donor d on dr.donor_id=d.donor_id where dr.ngo_id=? order by dr.request_id desc";
 db.query(sql,[ngo_id],(err,result)=>{
         if (err){
             console.log(err);
