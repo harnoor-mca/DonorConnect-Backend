@@ -12,7 +12,20 @@ app.listen(5000,()=>{
 });
 app.post("/register",(req,res)=>{
     const {name,email,password,role,phone,city,category}=req.body;
-    if (role=="donor"){
+
+    const checkSql = "SELECT * FROM donor WHERE email=? UNION SELECT * FROM ngo WHERE email=?";
+    db.query(checkSql, [email, email], (err, result) => {
+    if (err) {
+        console.log(err);
+    
+    return res.status(500).json({message:"Registration failed"});
+
+    }
+
+    return res.json({ message: "Registered successfully" });
+    
+
+    if (role==="donor"){
     const sql=`Insert into donor(name,email,password,role,phone,city) values (?,?,?,?,?,?)`;
     db.query(sql,[name,email,password,role,phone,city],(err,result)=> {
         if(err){
@@ -32,7 +45,9 @@ app.post("/register",(req,res)=>{
         res.json({message:"NGO registered successfully"});
     });
     }
+    });
 });
+
 
 app.get("/api/ngos",(req,res)=>{
     const sql="Select *from ngo order by organisation_name ";
