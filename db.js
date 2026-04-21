@@ -1,4 +1,4 @@
-
+require("dotenv").config();
 const mysql=require("mysql2");
 const db=mysql.createConnection({
     host:"localhost",
@@ -10,7 +10,7 @@ db.connect((err)=>{
     if(err){
         console.log("DB error:",err);
     } else{
-        console.log("MySQL connected!");
+        console.log("Connected to Railway db!");
     }
 });
 module.exports=db;

@@ -192,3 +192,15 @@ app.put("/api/donation/:id", (req, res) => {
     });
 });
 
+app.get("/test-db",(req,res)=>{
+    db.query("Select 1",(err,result)=>{
+        if(err){
+            console.error(err);
+            res.send("Db error");
+            
+        }
+        else{
+            res.send("Db working");
+        }
+    });
+});
