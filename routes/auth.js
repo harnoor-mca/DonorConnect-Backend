@@ -1,42 +1,42 @@
 const express=require("express");
 const router=express.Router();
 const db=require("../db");
-app.delete("/api/admin/delete-multiple-donor", (req, res) => {
-    const { ids } = req.body;
+// app.delete("/api/admin/delete-multiple-donor", (req, res) => {
+//     const { ids } = req.body;
 
-    if (!ids || ids.length === 0) {
-        return res.json({ message: "No users selected" });
-    }
+//     if (!ids || ids.length === 0) {
+//         return res.json({ message: "No users selected" });
+//     }
 
-    const sql = `DELETE FROM donor WHERE donor_id IN (?)`;
+//     const sql = `DELETE FROM donor WHERE donor_id IN (?)`;
 
-    db.query(sql, [ids], (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.json({ message: "Donor Delete failed" });
-        }
+//     db.query(sql, [ids], (err, result) => {
+//         if (err) {
+//             console.log(err);
+//             return res.json({ message: "Donor Delete failed" });
+//         }
 
-        res.json({ message: "Donor deleted successfully" });
-    });
-});
-app.delete("/api/admin/delete-multiple-ngo", (req, res) => {
-    const { ids } = req.body;
+//         res.json({ message: "Donor deleted successfully" });
+//     });
+// });
+// app.delete("/api/admin/delete-multiple-ngo", (req, res) => {
+//     const { ids } = req.body;
 
-    if (!ids || ids.length === 0) {
-        return res.json({ message: "No users selected" });
-    }
+//     if (!ids || ids.length === 0) {
+//         return res.json({ message: "No users selected" });
+//     }
 
-    const sql = `DELETE FROM ngo WHERE ngo_id IN (?)`;
+//     const sql = `DELETE FROM ngo WHERE ngo_id IN (?)`;
 
-    db.query(sql, [ids], (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.json({ message: "Ngo Delete failed" });
-        }
+//     db.query(sql, [ids], (err, result) => {
+//         if (err) {
+//             console.log(err);
+//             return res.json({ message: "Ngo Delete failed" });
+//         }
 
-        res.json({ message: "Ngo deleted successfully" });
-    });
-});
+//         res.json({ message: "Ngo deleted successfully" });
+//     });
+// });
 
 router.post("/register",(req,res)=> {
     console.log("BODY: ",req.body);

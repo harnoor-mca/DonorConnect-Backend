@@ -138,6 +138,43 @@ app.delete("/api/admin/donor-del/:id",(req,res)=>
     });
 });
 });
+app.delete("/api/admin/delete-multiple-donor", (req, res) => {
+    const { ids } = req.body;
+
+    if (!ids || ids.length === 0) {
+        return res.json({ message: "No users selected" });
+    }
+
+    const sql = `DELETE FROM donor WHERE donor_id IN (?)`;
+
+    db.query(sql, [ids], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.json({ message: "Donor Delete failed" });
+        }
+
+        res.json({ message: "Donor deleted successfully" });
+    });
+});
+app.delete("/api/admin/delete-multiple-ngo", (req, res) => {
+    const { ids } = req.body;
+
+    if (!ids || ids.length === 0) {
+        return res.json({ message: "No users selected" });
+    }
+
+    const sql = `DELETE FROM ngo WHERE ngo_id IN (?)`;
+
+    db.query(sql, [ids], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.json({ message: "Ngo Delete failed" });
+        }
+
+        res.json({ message: "Ngo deleted successfully" });
+    });
+});
+
 app.post("/api/donate", (req, res) => {
   const {
     donor_id,
