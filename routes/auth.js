@@ -8,7 +8,7 @@ router.post("/admin/delete-multiple", (req, res) => {
         return res.json({ message: "No users selected" });
     }
 
-    const sql = `DELETE FROM donor WHERE donor_id IN (?) or ngo_id IN (?)`;
+    const sql = `DELETE FROM donor WHERE donor_id IN (?) or delete from ngo ngo_id IN (?)`;
 
     db.query(sql, [ids], (err, result) => {
         if (err) {
