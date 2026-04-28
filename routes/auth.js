@@ -1,14 +1,14 @@
 const express=require("express");
 const router=express.Router();
 const db=require("../db");
-router.post("/admin/delete-multiple", (req, res) => {
+router.post("/admin/delete-multiple-donor", (req, res) => {
     const { ids } = req.body;
 
     if (!ids || ids.length === 0) {
         return res.json({ message: "No users selected" });
     }
 
-    const sql = `DELETE FROM donor WHERE donor_id IN (?) or delete from ngo ngo_id IN (?)`;
+    const sql = `DELETE FROM donor WHERE donor_id IN (?)`;
 
     db.query(sql, [ids], (err, result) => {
         if (err) {
@@ -19,6 +19,25 @@ router.post("/admin/delete-multiple", (req, res) => {
         res.json({ message: "Users deleted successfully" });
     });
 });
+router.post("/admin/delete-multiple-ngo", (req, res) => {
+    const { ids } = req.body;
+
+    if (!ids || ids.length === 0) {
+        return res.json({ message: "No users selected" });
+    }
+
+    const sql = `DELETE FROM ngo WHERE ngo_id IN (?)`;
+
+    db.query(sql, [ids], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.json({ message: "Delete failed" });
+        }
+
+        res.json({ message: "Users deleted successfully" });
+    });
+});
+
 router.post("/register",(req,res)=> {
     console.log("BODY: ",req.body);
     const body=req.body||{};
