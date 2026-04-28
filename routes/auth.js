@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 const db=require("../db");
-router.post("/admin/delete-multiple-donor", (req, res) => {
+app.delete("/api/admin/delete-multiple-donor", (req, res) => {
     const { ids } = req.body;
 
     if (!ids || ids.length === 0) {
@@ -13,13 +13,13 @@ router.post("/admin/delete-multiple-donor", (req, res) => {
     db.query(sql, [ids], (err, result) => {
         if (err) {
             console.log(err);
-            return res.json({ message: "Delete failed" });
+            return res.json({ message: "Donor Delete failed" });
         }
 
-        res.json({ message: "Users deleted successfully" });
+        res.json({ message: "Donor deleted successfully" });
     });
 });
-router.post("/admin/delete-multiple-ngo", (req, res) => {
+app.delete("/api/admin/delete-multiple-ngo", (req, res) => {
     const { ids } = req.body;
 
     if (!ids || ids.length === 0) {
@@ -31,10 +31,10 @@ router.post("/admin/delete-multiple-ngo", (req, res) => {
     db.query(sql, [ids], (err, result) => {
         if (err) {
             console.log(err);
-            return res.json({ message: "Delete failed" });
+            return res.json({ message: "Ngo Delete failed" });
         }
 
-        res.json({ message: "Users deleted successfully" });
+        res.json({ message: "Ngo deleted successfully" });
     });
 });
 
