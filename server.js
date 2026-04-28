@@ -10,7 +10,7 @@ app.use("/api",authRoutes);
 app.listen(5000,()=>{
     console.log("Server running on port 5000");
 });
-app.post("/register",(req,res)=>{
+/* app.post("/register",(req,res)=>{
     const {name,email,password,role,phone,city,category}=req.body;
 
     const checkSql = "SELECT * FROM donor WHERE email=? UNION SELECT * FROM ngo WHERE email=?";
@@ -47,7 +47,7 @@ app.post("/register",(req,res)=>{
     }
     });
 });
-
+*/
 
 app.get("/api/ngos",(req,res)=>{
     const sql="Select *from ngo order by organisation_name ";
