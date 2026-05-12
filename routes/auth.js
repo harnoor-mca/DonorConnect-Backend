@@ -60,7 +60,7 @@ router.post("/register",(req,res)=> {
       });
     }
     else{
-      const checksql= `select *from donor where email=? or phone=? `;
+      const checksql= `select *from donor where email=? and phone=? `;
       db.query(checksql,[email,phone],(err,result)=>{
         if (err) return res.json({message:"DB error"});
         if(result.length>0){
