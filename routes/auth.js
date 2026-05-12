@@ -45,23 +45,24 @@ router.post("/register",(req,res)=> {
     if (role==="ngo"){
       const checksql='select *from ngo where email=? or phone=? union select *from donor where email=? or phone=?';
       db.query(checksql,[email,phone],(err,result)=>{
-        if (err)return res.json({message:"DB error"});
+        if (err) return res.json({message:"DB error"});
         if(result.length>0){
           return res.json({message:"User already exists"});
 
         }
-      })
+      
         const sql=`INSERT INTO ngo(organisation_name,email,password,city,phone,address,category) 
       VALUES (?,?,?,?,?,?,?)`;
         db.query(sql,[name,email,password,city,phone,address,category],(err)=>{
             if(err) return res.json(err);
-            res.json({message: "NGO registered"});
+            return res.json({message: "NGO registered"});
         });
+      });
     }
     else{
       const checksql='select *from donor where email=? or phone=? union select *from ngo where email=? or phone=?';
       db.query(checksql,[email,phone],(err,result)=>{
-        if (err)return res.json({message:"DB error"});
+        if (err) return res.json({message:"DB error"});
         if(result.length>0){
           return res.json({message:"User already exists"});
           
