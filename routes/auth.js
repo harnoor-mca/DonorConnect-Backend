@@ -43,7 +43,7 @@ router.post("/register",(req,res)=> {
     const body=req.body||{};
     const {name,email,password,city,phone,role,address,category}=req.body;
     if (role==="ngo"){
-      const checksql=`select *from ngo where email=? and phone=? `;
+      const checksql=`select *from ngo where email=?`;
       db.query(checksql,[email,phone,],(err,result)=>{
         if (err) return res.json({message:"DB error"});
         if(result.length>0){
