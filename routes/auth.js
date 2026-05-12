@@ -44,7 +44,7 @@ router.post("/register",(req,res)=> {
     const {name,email,password,city,phone,role,address,category}=req.body;
     if (role==="ngo"){
       const checksql='select *from ngo where email=? or phone=? union select *from donor where email=? or phone=?';
-      db.query(checksql,[email,phone],(err,result)=>{
+      db.query(checksql,[email,phone,email,phone],(err,result)=>{
         if (err) return res.json({message:"DB error"});
         if(result.length>0){
           return res.json({message:"User already exists"});
