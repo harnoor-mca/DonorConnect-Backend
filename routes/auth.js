@@ -43,11 +43,11 @@ router.post("/register",(req,res)=> {
     const body=req.body||{};
     const {name,email,password,city,phone,role,address,category}=req.body;
     if (role==="ngo"){
-      const checksql=`select *from ngo where email=? `;
+      const checksql=`select *from ngo where email=? and phone=? `;
       db.query(checksql,[email,phone,],(err,result)=>{
         if (err) return res.json({message:"DB error"});
         if(result.length>0){
-          return res.json({message:"User already exists"});
+          return res.json({message:"Email id or phone  already exists"});
 
         }
       
@@ -55,7 +55,7 @@ router.post("/register",(req,res)=> {
       VALUES (?,?,?,?,?,?,?)`;
         db.query(sql,[name,email,password,city,phone,address,category],(err)=>{
             if(err) return res.json(err);
-            return res.json({message: "NGO registered"});
+            return res.json({message: "NGO registered !"});
         });
       });
     }
@@ -64,7 +64,7 @@ router.post("/register",(req,res)=> {
       db.query(checksql,[email,phone],(err,result)=>{
         if (err) return res.json({message:"DB error"});
         if(result.length>0){
-          return res.json({message:"User already exists"});
+          return res.json({message:"Email id or phone already exists"});
           
         }
       
