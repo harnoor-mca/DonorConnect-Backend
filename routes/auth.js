@@ -67,12 +67,13 @@ router.post("/register",(req,res)=> {
           return res.json({message:"User already exists"});
           
         }
-      })
+      
         const sql=`INSERT INTO donor(full_name,email,password,city,phone) VALUES (?,?,?,?,?)`;
         db.query(sql,[name,email,password,city,phone],(err)=>{
             if (err) return res.json(err);
             res.json({message:"Donor registered !"});
         });
+      });
     }
 });
 
