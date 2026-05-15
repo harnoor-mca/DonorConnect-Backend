@@ -147,7 +147,7 @@ console.log(ids);
 
     const sql = `DELETE FROM donor WHERE donor_id IN (${ids.map(()=>'?').join(',')})`;
 
-    db.query(sql, ids, (err, result) => {
+    db.query(sql, [ids], (err, result) => {
         if (err) {
             console.log(err);
             return res.json({ message: "Donor Delete failed" ,error:err});
