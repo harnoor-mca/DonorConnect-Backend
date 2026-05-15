@@ -145,7 +145,7 @@ app.delete("/api/admin/delete-multiple-donor", (req, res) => {
     
     const sql= `DELETE FROM donor WHERE donor_id IN (${ids.map(()=>'?').join(',')})`;
     
-    db.query(sql, [ids], (err, result) => {
+    db.query(sql, ids, (err, result) => {
         if (err) {  
             console.log(err);
             return res.json({ message: "Donor Delete failed" ,error:err});
@@ -161,9 +161,9 @@ app.delete("/api/admin/delete-multiple-ngo", (req, res) => {
         return res.json({ message: "No users selected" });
     }
 
-    const sql = `DELETE FROM ngo WHERE ngo_id IN (?)`;
+    const sql = `DELETE FROM ngo WHERE ngo_id IN (${ids.map(() => '?').join(',')})`;
 
-    db.query(sql, [ids], (err, result) => {
+    db.query(sql, ids, (err, result) => {
         if (err) {
             console.log(err);
             return res.json({ message: "Ngo Delete failed" });
