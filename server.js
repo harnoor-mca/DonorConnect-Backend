@@ -140,17 +140,17 @@ app.delete("/api/admin/donor-del/:id",(req,res)=>
 });
 app.delete("/api/admin/delete-multiple-donor", (req, res) => {
     const { ids } = req.body;
-
+console.log(ids);
     if (!ids || ids.length === 0) {
         return res.json({ message: "No users selected" });
     }
 
-    const sql = `DELETE FROM donor WHERE donor_id IN (?)`;
+    const sql = `DELETE FROM donor WHERE donor_id IN (${ids.map(()=>'?').join(',')})`;
 
-    db.query(sql, [ids], (err, result) => {
+    db.query(sql, ids, (err, result) => {
         if (err) {
             console.log(err);
-            return res.json({ message: "Donor Delete failed" });
+            return res.json({ message: "Donor Delete failed" ,error:err});
         }
 
         res.json({ message: "Donor deleted successfully" });
